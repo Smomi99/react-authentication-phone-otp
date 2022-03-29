@@ -6,6 +6,8 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
 } from "firebase/auth";
 
 initializeFirebase();
@@ -33,7 +35,7 @@ const useFirebase = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const loginUser = (email, password) => {
+  const loginUser = (email, password, location, history) => {
     setIsLoading(true);
 
     signInWithEmailAndPassword(auth, email, password)
@@ -48,6 +50,16 @@ const useFirebase = () => {
       })
       .finally(() => setIsLoading(false));
   };
+
+  function setUpRecaptcha(number) {
+    const recaptchaVerifier = new RecaptchaVerifier(
+      "recaptcha-container",
+      {},
+      auth
+    );
+    recaptchaVerifier.render();
+    return signInWithPhoneNumber(auth, number, recaptchaVerifier);
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -79,6 +91,7 @@ const useFirebase = () => {
     logOut,
     isLoading,
     authError,
+    setUpRecaptcha,
   };
 };
 export default useFirebase;

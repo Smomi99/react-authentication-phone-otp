@@ -7,8 +7,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 import React, { useState } from "react";
-import { NavLink, useLocation, useHistory } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import login from "../../images/undraw_Mobile_login_re_9ntv.png";
 const Login = () => {
@@ -83,9 +84,9 @@ const Login = () => {
             {authError && <Alert severity="error">{authError}</Alert>}
           </form>
           <p>----------------OR-------------</p>
-          <Button onClick={handleGoogleSignIn} variant="contained">
-            Google Sign In
-          </Button>
+          <Link to="/phonesignup">
+            <Button variant="contained">Sign In with Phone</Button>
+          </Link>
         </Grid>
       </Grid>
     </Container>

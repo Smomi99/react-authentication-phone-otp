@@ -4,7 +4,7 @@ import SingleUsers from '../SingleUsers/SingleUsers';
 const UserInfo = () => {
     const [users, setUsers] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://boiling-retreat-27528.herokuapp.com/users')
             .then(res => res.json())
             .then(data => {
                 setUsers(data);

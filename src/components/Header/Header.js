@@ -29,9 +29,18 @@ const Header = () => {
             </Link>
           </Typography>
           {user?.email ? (
-            <Button onClick={logOut} color="inherit">
-              Log Out
-            </Button>
+            <div>
+              <Button onClick={logOut} color="inherit">
+                Log Out
+              </Button>
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to="/users"
+              >
+                <Button color="inherit">
+                  register users
+                </Button></Link>
+            </div>
           ) : (
             <Button color="inherit">
               <Link

@@ -24,8 +24,10 @@ const useFirebase = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setAuthError("");
-        const user = userCredential.user;
+        const newUser = { email };
+        setUser(newUser)
         // ...
+        saveUser(email, 'POST')
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -35,7 +37,7 @@ const useFirebase = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const loginUser = (email, password, location, history) => {
+  const loginUser = (email, password) => {
     setIsLoading(true);
 
     signInWithEmailAndPassword(auth, email, password)
@@ -83,6 +85,18 @@ const useFirebase = () => {
       })
       .finally(() => setIsLoading(false));
   };
+
+  const saveUser = (email, method) => {
+    const user = { email };
+    fetch('http://localhost:5000/users', {
+      method: method,
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then()
+  }
 
   return {
     user,
